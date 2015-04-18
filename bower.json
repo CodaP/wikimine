@@ -16,9 +16,10 @@
     "angular-resource": "~1.3.15",
     "jquery-ui": "~1.11.4",
     "angular-jquery": "~0.2.1",
-    "angularUI": "*"
+    "angular-slider": "~0.2.14"
   },
   "resolutions": {
-    "angular": "~1.3.15"
+    "angular": "~1.3.15",
+    "jquery-ui": "~1.11.4"
   }
 }
