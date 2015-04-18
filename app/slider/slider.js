@@ -9,11 +9,23 @@ sliderApp.directive('timeSlider', function(){
                 var currentDate;
                 var createdDate;
                 var revisions;
+
+                    $( element ).slider({
+                        range: true,
+                        min: 0,
+                        max: 500,
+                        values: [75, 300],
+                        slide: function (event, ui) {
+                        //    ui.values[0]
+                        //    ui.values[1]
+                        }
+                    });
+
             },
             scope:{
 
             },
-            templateUrl:'slider/sliderview.html'
+            template:'<div></div>'
 
 
         }

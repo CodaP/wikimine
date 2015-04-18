@@ -5,5 +5,10 @@ angular.module('wikiMiner', [
   'ngRoute',
   'wikiMiner.directives.slider',
   'wikiMiner.directives.filters',
-  'wikiMiner.directives.geoMap'
+  'wikiMiner.directives.geoMap',
+  'wikiMiner.services.query_api'
 ])
+
+.config(['$routeProvider', function($routeProvider) {
+  $routeProvider.otherwise({redirectTo: '/view1'});
+}]);
