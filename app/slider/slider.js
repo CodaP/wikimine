@@ -13,12 +13,7 @@ sliderApp.directive('timeSlider', function(){
             scope:{
 
             },
-            element:{
-
-            },
-            attributes:{
-
-            }
+            templateUrl:'slider/sliderview.html'
 
 
         }
