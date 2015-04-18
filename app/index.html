@@ -13,26 +13,17 @@
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
   <link rel="stylesheet" href="app.css">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-  <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
-</head>
-<body class="row" style="overflow-x:hidden;overflow-y:hidden;">
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
-  <div class="container-fluid row">
-    <filters class="col-xs-2"></filters>
-    <geo-map class="col-xs-10"></geo-map>
-    <time-slider class="col-xs-12"></time-slider>
-  </div>
+  <link rel="stylesheet" href="bower_components/angular-slider/slider.css">
 
+  <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
   <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="app.js"></script>
   <script src="query_api/query_api.js"></script>
-  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="geo_api/geo_api.js"></script>
   <script src="slider/slider.js"></script>
   <script src="filters/filters.js"></script>
   <script src="map/map.js"></script>
@@ -41,5 +32,16 @@
   <script src="bower_components/angular-jquery/src/jquery.js"></script>
   <script src="bower_components/lodash/dist/lodash.js"></script>
   <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+  <script src="bower_components/angular-slider/slider.js"></script>
+</head>
+<body class="row" style="overflow-x:hidden;overflow-y:hidden;">
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  <slider floor="10" ceiling="60" ng-model-low="position.minAge" ng-model-high="position.maxAge"></slider>
+  <div class="container-fluid">
+    <filters class="col-xs-2" style="padding-left: 0px"></filters>
+    <geo-map class="col-xs-10"></geo-map>
+  </div>
 </body>
 </html>
