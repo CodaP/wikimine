@@ -6,7 +6,8 @@ angular.module('wikiMiner', [
   'wikiMiner.directives.slider',
   'wikiMiner.directives.filters',
   'wikiMiner.directives.geoMap',
-  'wikiMiner.services.query_api'
+  'wikiMiner.services.query_api',
+  'wikiMiner.services.geo_api'
 ])
 
 .config(['$routeProvider', function($routeProvider) {
