@@ -3,10 +3,7 @@
 // Declare app level module which depends on views, and components
 angular.module('wikiMiner', [
   'ngRoute',
-  'wikiMiner.view1',
-  'wikiMiner.view2',
-  'wikiMiner.directives.slider'
-]).
-config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/view1'});
-}]);
+  'wikiMiner.directives.slider',
+  'wikiMiner.directives.filters',
+  'wikiMiner.directives.geoMap'
+])
