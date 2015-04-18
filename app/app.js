@@ -4,8 +4,7 @@
 angular.module('wikiMiner', [
   'ngRoute',
   'wikiMiner.view1',
-  'wikiMiner.view2',
-  'wikiMiner.version'
+  'wikiMiner.view2'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/view1'});
