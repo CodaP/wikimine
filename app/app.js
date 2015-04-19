@@ -8,6 +8,7 @@ angular.module('wikiMiner', [
   'wikiMiner.directives.geoMap',
   'wikiMiner.services.query_api',
   'wikiMiner.services.geo_api',
+  'wikiMiner.services.nytimes_api',
   'ui.slider'
 ])
 
