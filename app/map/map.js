@@ -19,14 +19,49 @@ angular.module('wikiMiner.directives.geoMap', ['uiGmapgoogle-maps', 'wikiMiner.s
                 options: {
                     backgroundColor: "#000000",
                     mapTypeControl: false,
-                    maxZoom: 10, // don't let people zoom to street level, since GeoIP is not reliable at that level
+                    maxZoom: 14, // don't let people zoom to street level, since GeoIP is not reliable at that level
                     streetViewControl: false,
                     styles: [] // TODO: add styles
                 }
             };
             $scope.revLocations = [];
+            $scope.locationsToRevs = {};
+            $scope.expandLocations = [];
+            $scope.expandLines = [];
+            $scope.selectedLocation = null;
+            $scope.selectMarker = function(marker) {
+                if (marker === $scope.selectedLocation) {
+                    $scope.selectedLocation = null;
+                    $scope.expandLocations.length = 0;
+                    $scope.expandLines.length = 0;
+                } else {
+                    $scope.selectedLocation = marker;
+                    $scope.expandLocations.length = 0;
+                    $scope.expandLines.length = 0;
+                    var newPoints = $scope.locationsToRevs[JSON.stringify(marker.location)];
+                    var circumference = newPoints.length * 0.01;
+                    var radius = circumference / (2*Math.PI);
+                    for (var c = 0; c < newPoints.length; c++) {
+                        var pointLocation = {
+                            latitude: marker.location.latitude + radius * Math.cos(2 * Math.PI * c / newPoints.length),
+                            longitude: marker.location.longitude + radius * Math.sin(2 * Math.PI * c / newPoints.length)
+                        };
+                        $scope.expandLocations.push({
+                            data: newPoints[c],
+                            location: pointLocation});
+                        $scope.expandLines.push([pointLocation, marker.location]);
+                    }
+                }
+            };
             $scope.addDataPoint = function(data, location) {
+                data.hasComment = data.comment.length > 0;
                 this.revLocations.push({data: data, location: location});
+                locStr = JSON.stringify(location);
+                if (!this.locationsToRevs[locStr]) {
+                    this.locationsToRevs[locStr] = [data];
+                } else {
+                    this.locationsToRevs[locStr].push(data);
+                }
             };
             $scope.processRevisions = function(data) {
                 // {query-continue: {revisions: {rvcontinue}}, query: {pages: {$id: {pageid, ns, title, revisions: [{revid, parentid, user, anon?, comment}]}}}}

@@ -1,9 +1,29 @@
 <div style="max-height:70vh">
     <ui-gmap-google-map center='map.center' zoom='map.zoom' options="map.options">
-        <ui-gmap-marker ng-repeat="marker in revLocations"
-                idKey='marker.data.revid'
-                coords='marker.location'
+        <ui-gmap-polyline ng-repeat="line in expandLines"
+                          path="line"
+                          stroke="{color: '#555', weight: 1}"
+                          static="true"
                 >
+        </ui-gmap-polyline>
+        <ui-gmap-marker ng-repeat="marker in revLocations"
+                        idKey='marker.data.revid'
+                        coords='marker.location'
+                        click='selectMarker(marker)'
+                >
+        </ui-gmap-marker>
+        <ui-gmap-marker ng-repeat="marker in expandLocations"
+                        idKey='marker.data.revid'
+                        coords='marker.location'
+                >
+            <ui-gmap-window>
+                <div>
+                    <h3 ng-show="{{marker.data.hasComment}}">{{marker.data.comment}}</h3>
+                    <p>Posted by {{marker.data.user}} on {{marker.data.timestamp}}</p>
+                    <a target="_blank" ng-href="http://en.wikipedia.org/w/index.php?title=Perry_Kivolowitz&diff={{marker.data.revid}}&oldid={{marker.data.parentid}}">View changes</a>
+                    <p>{{marker.data}}</p>
+                </div>
+            </ui-gmap-window>
         </ui-gmap-marker>
     </ui-gmap-google-map>
 </div>
