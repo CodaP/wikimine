@@ -39,8 +39,8 @@ angular.module('wikiMiner.directives.filters', ['wikiMiner.slider.services'])
             };
             scope.updateTime = function(){ //updates the timeBounds info, effectively the second watch function
 
-                timeBounds.maxTime = ((scope.maxDate-scale.minDate)/(scale.maxDate))*100;
-                timeBounds.minTime = ((scope.minDate-scale.minDate)/(scale.maxDate))*100;
+                //timeBounds.maxTime = ((scope.maxDate-scale.minDate)/(scale.maxDate))*100;
+                //timeBounds.minTime = ((scope.minDate-scale.minDate)/(scale.maxDate))*100;
             }
         },
         scope: {},

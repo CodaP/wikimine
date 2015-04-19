@@ -49,12 +49,13 @@
     <filters class="col-xs-2"></filters>
     <geo-map class="col-xs-10"></geo-map>
   </div>
-
 </div>
-<hr>
-<div Style="position: fixed; bottom: 0px; width: 100%" ng-controller="sliderCntrl">
+<div Style="position: fixed; bottom: 5px; left: 10px; width: 100%; alignment: right; " ng-controller="sliderCntrl">
   <event-plot data="page_data" scale="scale"></event-plot>
+</div>
+<div Style="position: fixed; bottom: 0px; left: 4px; width: 100%" align="center" ng-controller="sliderCntrl">
   <slider floor="0" ceiling="100" ng-model-low="bounds.minTime" ng-model-high="bounds.maxTime"></slider>
 </div>
+
 </body>
 </html>
