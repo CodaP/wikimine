@@ -1,8 +1,7 @@
-angular.module('wikiMiner.directives.filters', ['wikiMiner.slider.services'])
+angular.module('wikiMiner.directives.filters', ['wikiMiner.slider.services', 'wikiMiner.services.page_title_api'])
 
 
-
-.directive('filters', ['timeBounds','scale', 'pageData', function (timeBounds, scale, pageData) {
+.directive('filters', ['timeBounds','scale', 'pageData', 'page_title_api', function (timeBounds, scale, pageData, page_title_api) {
     return {
         restrict: 'E',
         link: function (scope, element, attributes) {
@@ -37,6 +36,20 @@ angular.module('wikiMiner.directives.filters', ['wikiMiner.slider.services'])
                 scope.maxDate=new Date(scale.maxDate);
                 scope.updateTime();
                 //timeBounds.maxTime = ((scope.maxDate)/(scale.maxDate))*100;
+            };
+
+            scope.suggestions = [];
+            scope.updateSuggestions = function(data) {
+                console.log("updating suggestions with: " + JSON.stringify(data.query.allpages));
+                scope.suggestions = [];
+                for (var i = 0; i < data.query.allpages.length; i++) {
+                    scope.suggestions.push(data.query.allpages[i].title);
+                }
+            };
+
+            scope.triggerUpdateSuggestions = function(typed) {
+                console.log("triggering update: " + JSON.stringify(typed));
+                page_title_api.get({'apprefix':typed}, scope.updateSuggestions); 
             };
             scope.updateTime = function(){ //updates the timeBounds info, effectively the second watch function
 

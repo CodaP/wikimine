@@ -12,7 +12,8 @@ angular.module('wikiMiner', [
   'wikiMiner.slider.services',
   'ui.slider',
   'wikiMiner.event_plot',
-  'angular-loading-bar'
+  'angular-loading-bar',
+  'autocomplete'
 ])
 
 .config(['$routeProvider', function($routeProvider) {

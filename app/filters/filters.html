@@ -13,7 +13,8 @@
             </div>
     </div>
     <br>
-    <input name="inputPageElement" type="text" class="input-group" ng-model="pageToAdd" placeholder="Add a new Page">
+    <!--<input name="inputPageElement" type="text" class="input-group" ng-model="pageToAdd" placeholder="Add a new Page">-->
+    <autocomplete ng-model="pageToAdd" data="suggestions" on-type="triggerUpdateSuggestions"></autocomplete>
     <span ng-show="true">Username is required.</span>
 
 
