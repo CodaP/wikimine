@@ -8,7 +8,7 @@
                 action:'query',
                 prop:'revisions',
                 format:'json',
-                rvprop:'user|ids|comment',
+                rvprop:'user|ids|comment|timestamp',
                 rvlimit:'100',
                 titles:'@titles'
             },{
