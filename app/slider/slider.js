@@ -13,15 +13,56 @@ module.factory('timeBounds', function(){
             revLocations: [] // [{data: {...}, location: {latitude, longitude}}]
         };
 
+        pageData.removePage = function(index) {
+            var page = pageData.pages.splice(index, 1)[0];
+            page.revLocations.forEach(function(data) {
+                for (var c = 0; c < pageData.locations.length; c++) {
+                    var test = pageData.locations[c];
+                    if (angular.equals(test.location, data.location)) {
+                        for (var d = 0; d < test.data.length; d++) {
+                            var testEl = test.data[d];
+                            if (testEl == data.data) {
+                                test.data.splice(d, 1);
+                                if (test.data.length == 0) {
+                                    pageData.locations.splice(c, 1);
+                                }
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                for (var c = 0; c < pageData.revLocations.length; c++) {
+                    if (pageData.revLocations[c].data == data.data) {
+                        pageData.revLocations.splice(c, 1);
+                        break;
+                    }
+                }
+                var locKey = JSON.stringify(data.location);
+                var datas = pageData.locationsToRevs[locKey].data;
+                for (var c = 0; c < datas.length; c++) {
+                    if (datas[c] == data.data) {
+                        datas.splice(c, 1);
+                        if (datas.length == 0) {
+                            delete pageData.locationsToRevs[locKey];
+                        }
+                        break;
+                    }
+                }
+            });
+        };
+
         pageData.addPage = function(page) {
             var newPage = {
                 name: page,
-                selected: true
+                selected: true,
+                revLocations: []
             };
             var addDataPoint = function (data, location) {
                 data.hasComment = data.comment.length > 0;
                 data.options = {visible: true};
                 pageData.revLocations.push({data: data, location: location});
+                newPage.revLocations.push({data: data, location: location});
                 locStr = JSON.stringify(location);
                 if (!pageData.locationsToRevs[locStr]) {
                     var newData = {options: {visible: true}, id: data.revid, data: [data], location: location};

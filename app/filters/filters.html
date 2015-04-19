@@ -7,7 +7,7 @@
             <div  ng-repeat="page in pageData.pages" name="pageList" class="row" style="overflow-y:auto">
                 <input class="col-xs-2" type="checkbox" ng-model="page.selected" style="margin-left: 10%">
                 <Span class="form-control col-xs-8">{{page.name}}</Span>
-                <button ng-click="removePage($index)" type="button" class="btn btn-default col-xs-2" aria-label="Right Align">
+                <button ng-click="pageData.removePage($index)" type="button" class="btn btn-default col-xs-2" aria-label="Right Align">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </button>
             </div>
