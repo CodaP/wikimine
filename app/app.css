@@ -47,3 +47,8 @@ li {
   max-height: 175px;
   overflow: auto;
 }
+
+.row{
+  overflow: hidden;
+  height: 100%;
+}
