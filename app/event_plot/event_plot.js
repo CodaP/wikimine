@@ -29,17 +29,25 @@ angular.module('wikiMiner.event_plot',['wikiMiner.slider.services'])
                scope.revLocations = pageData.revLocations;
 
 
-               scope.filter = function(){
-                   scope.revLocations.forEach(function(element){
-                       var datetime = (new Date(element.data.timestamp)).valueOf();
-                       if((scope.scaler_transform(datetime) < timeBounds.maxTime)
-                           && (scope.scaler_transform(datetime) > timeBounds.minTime)){
-                           element.data.options.visible = true;
+               scope.filter = function() {
+                   for (key in pageData.locationsToRevs) {
+                       if (pageData.locationsToRevs.hasOwnProperty(key)) {
+                           var anyVisible = false;
+                           pageData.locationsToRevs[key].data.forEach(function (element) {
+                               var datetime = (new Date(element.timestamp)).valueOf();
+                               var bound = scope.scaler_transform(datetime);
+                               if ((bound < timeBounds.maxTime)
+                                   && (bound >= timeBounds.minTime)) {
+                                   element.options.visible = true;
+                                   anyVisible = true;
+                               }
+                               else {
+                                   element.options.visible = false;
+                               }
+                           });
+                           pageData.locationsToRevs[key].options.visible = anyVisible;
                        }
-                       else{
-                           element.data.options.visible = false;
-                       }
-                   });
+                   }
                };
 
                scope.render = function(){
