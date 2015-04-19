@@ -6,7 +6,7 @@
                           static="true"
                 >
         </ui-gmap-polyline>
-        <ui-gmap-marker ng-repeat="marker in revLocations"
+        <ui-gmap-marker ng-repeat="marker in pageData.revLocations"
                         idKey='marker.data.revid'
                         coords='marker.location'
                         click='selectMarker(marker)'
