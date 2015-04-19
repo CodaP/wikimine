@@ -2,50 +2,48 @@
  * Created by codaphillips on 4/18/15.
  */
 angular.module('wikiMiner.event_plot',['wikiMiner.slider.services'])
-.directive('eventPlot', ['timeBounds', 'scale', function(timeBounds, scale){
+.directive('eventPlot', ['timeBounds', 'scale', 'pageData', function(timeBounds, scale, pageData){
        return {
            restrict:'E',
            template:'<svg viewBox="0 0 1000 100"></svg>',
            scope:{
-               data:'=',
-               scale:'='
            },
            link: function(scope, element, attr){
                scope.timeBounds = timeBounds;
+               scope.scale = scale;
                var svg = d3.select(element[0].children[0])
                    .style('height', '100%')
                    .style('width','100%')
                    .style('min-width','100px');
                var points = svg.append('g');
                var axis = svg.append('g').attr('transform','translate(0,80)');
-
+               scope.scaler_transform = d3.scale.linear().domain([scale.minDate,scale.maxDate]).range([0,100]);
+               scope.$watch('scale',function(newVal){
+                   scope.scaler_transform = d3.scale.linear().domain([scope.scale.minDate,scope.scale.maxDate]).range([0,100]);
+               }, true);
                scope.$watch('timeBounds',function(newVal){
                    scope.filter();
                    scope.render();
                },true);
 
-               scope.points = [];
+               scope.revLocations = pageData.revLocations;
+
 
                scope.filter = function(){
-                   scope.points = [];
-                   for(var page in scope.data.query.pages){
-                       if(scope.data.query.pages.hasOwnProperty(page)){
-                           scope.data.query.pages[page].revisions.forEach(function(element){
-                               var datetime = (new Date(element.timestamp)).valueOf();
-                               var scaler = d3.scale.linear().domain([scale.minDate,scale.maxDate]).range([0,100]);
-                               if((scaler(datetime) < timeBounds.maxTime)
-                                   && (scaler(datetime) > timeBounds.minTime)){
-                                   scope.points.push(scaler(datetime));
-                               }
-                           });
+                   scope.revLocations.forEach(function(element){
+                       var datetime = (new Date(element.data.timestamp)).valueOf();
+                       if((scope.scaler_transform(datetime) < timeBounds.maxTime)
+                           && (scope.scaler_transform(datetime) > timeBounds.minTime)){
+                           element.data.options.visible = true;
                        }
-                   }
-                   scope.render();
-               }
-
-               scope.$watch('data',scope.filter);
+                       else{
+                           element.data.options.visible = false;
+                       }
+                   });
+               };
 
                scope.render = function(){
+                   //axis.selectAll('*').remove();
                    axis.call(d3.svg.axis().scale(d3.time.scale().domain([scale.minDate,scale.maxDate]).range([0,1000])))
                    var d = svg.selectAll('rect')
                        .data([timeBounds])
@@ -65,20 +63,35 @@ angular.module('wikiMiner.event_plot',['wikiMiner.slider.services'])
                        .remove();
 
                    var p = points.selectAll('circle')
-                       .data(scope.points);
+                       .data(pageData.revLocations);
                    p
                        .attr('cx',function(element) {
-                           return element*10;
+                           return scope.scaler_transform((new Date(element.data.timestamp)).valueOf())*10;
+                       })
+                       .attr('fill',function(element){
+                           if(element.data.options.visible){
+                               return 'red';
+                           }
+                           else{
+                               return 'gray';
+                           }
                        });
                    p
                        .enter()
                        .append('circle')
                        .attr('cx',function(element) {
-                           return element*10;
+                           return scope.scaler_transform((new Date(element.data.timestamp)).valueOf())*10;
                        })
                        .attr('cy',50)
                        .attr('r', 3)
-                       .attr('fill','red');
+                       .attr('fill',function(element){
+                           if(element.data.options.visible){
+                               return 'red';
+                           }
+                           else{
+                               return 'gray';
+                           }
+                       });
 
                    p
                        .exit()

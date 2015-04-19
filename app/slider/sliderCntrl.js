@@ -8,23 +8,16 @@ angular.module('wikiMiner.controllers',['wikiMiner.slider.services']).
         $scope.scale = scale;
         scale.minDate = 0
         scale.maxDate = (new Date()).valueOf();
-        $scope.$watch('page_data.query.pages', function(newValue){
-            var min_time = 1e90;
-            var max_time = 0;
-            for(var page in newValue){
-                if(newValue.hasOwnProperty(page)){
-                    newValue[page].revisions.sort(function(a,b){return a.timestamp.localeCompare(b.timestamp)});
-                    var possible_min_time = (new Date(newValue[page].revisions[0].timestamp)).valueOf();
-                    var possible_max_time = (new Date(newValue[page].revisions.slice(-1)[0].timestamp)).valueOf();
-                    if(min_time > possible_min_time){
-                        min_time = possible_min_time;
-                    }
-                    if(max_time < possible_max_time){
-                        max_time = possible_max_time;
-                    }
+        $scope.$watch('page_data.revLocations', function(newValue){
+                var min_time = 1e90;
+                var max_time = 0;
+                if(newValue.length != 0) {
+                    newValue.sort(function (a, b) {
+                        return a.data.timestamp.localeCompare(b.data.timestamp)
+                    });
+                    scale.minDate = (new Date(newValue[0].data.timestamp)).valueOf();
+                    scale.maxDate = (new Date(newValue.slice(-1)[0].data.timestamp)).valueOf();
                 }
-            }
-            scale.minDate = min_time;
-            scale.maxDate = max_time;
-        });
+        },true);
+
     }]);
