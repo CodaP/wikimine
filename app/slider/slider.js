@@ -24,7 +24,11 @@ module.factory('timeBounds', function(){
                 pageData.revLocations.push({data: data, location: location});
                 locStr = JSON.stringify(location);
                 if (!pageData.locationsToRevs[locStr]) {
-                    newData = {id: data.revid, data: [data], location: location};
+                    var newData = {id: data.revid, data: [data], location: location};
+                    newData.select = function() {
+                        console.log('select');
+                        window.$mapScope.selectLocation(newData);
+                    };
                     pageData.locationsToRevs[locStr] = newData;
                     pageData.locations.push(newData)
                 } else {
