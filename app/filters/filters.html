@@ -25,7 +25,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Start:</label>
             <div class="col-sm-10">
-                <input type="date" ng-model="minDate" max="{{maxDate}}" min="0"  class="form-control">
+                <input type="date" ng-click="updateTime()" ng-model="minDate" max="{{maxDate}}" min="0"  class="form-control">
             </div>
         </div>
         <div class="form-group">
@@ -41,7 +41,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">End:</label>
             <div class="col-sm-10">
-                <input type="date" ng-model="maxDate" min="{{minDate}}" class="form-control">
+                <input ng-click="updateTime()" type="date" ng-model="maxDate" min="{{minDate}}" class="form-control">
             </div>
         </div>
         <div class="form-group">
