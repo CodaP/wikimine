@@ -8,6 +8,7 @@ module.factory('timeBounds', function(){
     .factory('pageData', function(query_api, geo_api){
         var pageData = {
             pages: [],
+            locations: [],
             locationsToRevs: {}, // {'{latitude, longitude}': {data: [{...}], location}}
             revLocations: [] // [{data: {...}, location: {latitude, longitude}}]
         };
@@ -23,7 +24,9 @@ module.factory('timeBounds', function(){
                 pageData.revLocations.push({data: data, location: location});
                 locStr = JSON.stringify(location);
                 if (!pageData.locationsToRevs[locStr]) {
-                    pageData.locationsToRevs[locStr] = {id: data.revid, data: [data], location: location};
+                    newData = {id: data.revid, data: [data], location: location};
+                    pageData.locationsToRevs[locStr] = newData;
+                    pageData.locations.push(newData)
                 } else {
                     pageData.locationsToRevs[locStr].data.push(data);
                 }

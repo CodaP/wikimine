@@ -28,7 +28,6 @@ angular.module('wikiMiner.directives.geoMap', ['uiGmapgoogle-maps', 'wikiMiner.s
             $scope.expandLocations = [];
             $scope.expandLines = [];
             $scope.selectedLocation = null;
-            $scope.locations = [];
             $scope.selectLocation = function(value) {
                 if (value === $scope.selectedLocation) {
                     $scope.selectedLocation = null;
@@ -53,20 +52,6 @@ angular.module('wikiMiner.directives.geoMap', ['uiGmapgoogle-maps', 'wikiMiner.s
                     }
                 }
             };
-            $scope.$watch('pageData.locationsToRevs', function(newValue) {
-                $scope.locations.length = 0;
-                for (key in newValue) {
-                    if (newValue.hasOwnProperty(key)) {
-                        var self = newValue[key];
-                        $scope.locations.push(self);
-                        if (!self.select) {
-                            self.select = function() {
-                                $scope.selectLocation(self);
-                            }
-                        }
-                    }
-                }
-            }, true);
             uiGmapGoogleMapApi.then(function (maps) {
 
             });
