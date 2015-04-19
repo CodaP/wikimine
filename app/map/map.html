@@ -15,13 +15,14 @@
         <ui-gmap-marker ng-repeat="marker in expandLocations"
                         idKey='marker.data.revid'
                         coords='marker.location'
+                        options="marker.data.options"
                 >
             <ui-gmap-window>
                 <div>
                     <h3 ng-show="{{marker.data.hasComment}}">{{marker.data.comment}}</h3>
                     <p>Posted by {{marker.data.user}} on {{marker.data.timestamp}}</p>
                     <a target="_blank" ng-href="http://en.wikipedia.org/w/index.php?title=Perry_Kivolowitz&diff={{marker.data.revid}}&oldid={{marker.data.parentid}}">View changes</a>
-                    <p>{{marker.data}}</p>
+                    <p>{{marker}}</p>
                 </div>
             </ui-gmap-window>
         </ui-gmap-marker>

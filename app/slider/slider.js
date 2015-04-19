@@ -7,12 +7,13 @@ module.factory('timeBounds', function(){
     })
     .factory('pageData', function(query_api, geo_api){
         var pageData = {
-            revLocations: [], // [{show, data: {...}, location: {latitude, longitude}}]
+            revLocations: [], // [{data: {...}, location: {latitude, longitude}}]
             locationsToRevs: {} // {'{latitude, longitude}': {data: {...}, location}}
         };
         var addDataPoint = function(data, location) {
             data.hasComment = data.comment.length > 0;
-            pageData.revLocations.push({show: true, data: data, location: location});
+            data.options = {visible: true};
+            pageData.revLocations.push({data: data, location: location});
             locStr = JSON.stringify(location);
             if (!pageData.locationsToRevs[locStr]) {
                 pageData.locationsToRevs[locStr] = [data];
