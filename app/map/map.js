@@ -32,7 +32,7 @@ angular.module('wikiMiner.directives.geoMap', ['uiGmapgoogle-maps', 'wikiMiner.s
                 // {query-continue: {revisions: {rvcontinue}}, query: {pages: {$id: {pageid, ns, title, revisions: [{revid, parentid, user, anon?, comment}]}}}}
                 var pages = data.query.pages;
                 if (data['query-continue'] != undefined) {
-                    query_api.get({titles: 'canada', rvstartid: data['query-continue'].revisions.rvcontinue}, $scope.processRevisions);
+                    query_api.get({titles: 'Perry_Kivolowitz', rvstartid: data['query-continue'].revisions.rvcontinue}, $scope.processRevisions);
                 } else {
                     console.log('No more revisions!');
                 }
@@ -67,7 +67,7 @@ angular.module('wikiMiner.directives.geoMap', ['uiGmapgoogle-maps', 'wikiMiner.s
             $scope.cleanIp = function(ipStr) {
                 return ipStr.replace('xxx', '0');
             };
-            query_api.get({titles: 'canada'}, $scope.processRevisions);
+            query_api.get({titles: 'Perry_Kivolowitz'}, $scope.processRevisions);
             uiGmapGoogleMapApi.then(function (maps) {
 
             });
