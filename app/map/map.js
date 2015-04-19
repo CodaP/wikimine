@@ -14,8 +14,8 @@ angular.module('wikiMiner.directives.geoMap', ['uiGmapgoogle-maps', 'wikiMiner.s
             // uiGmapGoogleMapApi is a promise.
             // The "then" callback function provides the google.maps object.
             $scope.map = {
-                center: { latitude: 10, longitude: 0 },
-                zoom: 2,
+                center: { latitude: 23, longitude: -90 },
+                zoom: 4,
                 options: {
                     backgroundColor: "#000000",
                     mapTypeControl: false,

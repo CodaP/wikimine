@@ -5,7 +5,9 @@ angular.module('wikiMiner.controllers',['wikiMiner.slider.services']).
     controller('sliderCntrl', ['$scope', 'timeBounds', 'pageData', 'scale', function($scope, timeBounds, pageData, scale){
         $scope.bounds = timeBounds;
         $scope.page_data = pageData;
-        $scope.scale = [0,(new Date()).valueOf()];
+        $scope.scale = scale;
+        scale.minDate = 0
+        scale.maxDate = (new Date()).valueOf();
         $scope.$watch('page_data.query.pages', function(newValue){
             var min_time = 1e90;
             var max_time = 0;
