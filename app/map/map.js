@@ -13,9 +13,19 @@ angular.module('wikiMiner.directives.geoMap', ['uiGmapgoogle-maps'])
 
             // uiGmapGoogleMapApi is a promise.
             // The "then" callback function provides the google.maps object.
-            $scope.map = { center: { latitude: 10, longitude: 0 }, zoom: 2 };
+            $scope.map = {
+                center: { latitude: 10, longitude: 0 },
+                zoom: 2,
+                options: {
+                    backgroundColor: "#000000",
+                    mapTypeControl: false,
+                    maxZoom: 10, // don't let people zoom to street level, since GeoIP is not reliable at that level
+                    streetViewControl: false,
+                    styles: [] // TODO: add styles
+                }
+            };
             uiGmapGoogleMapApi.then(function (maps) {
-                // TODO: MAP SETUP
+                //$scope.map.options.mapTypeId = maps.MapTypeId.TERRAIN;
             });
         },
         scope: {},
