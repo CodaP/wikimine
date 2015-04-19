@@ -29,6 +29,7 @@
   <script src="geo_api/geo_api.js"></script>
   <script src="slider/slider.js"></script>
   <script src="filters/filters.js"></script>
+  <script src="slider/sliderCntrl.js"></script>
   <script src="map/map.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="bower_components/angular-jquery/src/jquery.js"></script>
@@ -36,13 +37,16 @@
   <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
   <script src="bower_components/angular-slider/slider.js"></script>
 </head>
-<body class="row" style="overflow-x:hidden;overflow-y:hidden;">
+<div class="row" style="overflow-x:hidden;overflow-y:hidden;">
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-  <slider floor="10" ceiling="60" ng-model-low="position.minAge" ng-model-high="position.maxAge"></slider>
+  <div ng-controller="sliderCntrl">
+    {{bounds}}
+    <slider floor="0" ceiling="100" ng-model-low="bounds.minTime" ng-model-high="bounds.maxTime"></slider>
+  </div>
   <div class="container-fluid">
-    <filters class="col-xs-2" style="padding-left: 0px"></filters>
+    <filters class="col-xs-2"></filters>
     <geo-map class="col-xs-10"></geo-map>
   </div>
 </body>
