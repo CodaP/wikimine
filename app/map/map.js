@@ -28,30 +28,45 @@ angular.module('wikiMiner.directives.geoMap', ['uiGmapgoogle-maps', 'wikiMiner.s
             $scope.expandLocations = [];
             $scope.expandLines = [];
             $scope.selectedLocation = null;
-            $scope.selectMarker = function(marker) {
-                if (marker === $scope.selectedLocation) {
+            $scope.locations = [];
+            $scope.selectLocation = function(value) {
+                if (value === $scope.selectedLocation) {
                     $scope.selectedLocation = null;
                     $scope.expandLocations.length = 0;
                     $scope.expandLines.length = 0;
                 } else {
-                    $scope.selectedLocation = marker;
+                    $scope.selectedLocation = value;
                     $scope.expandLocations.length = 0;
                     $scope.expandLines.length = 0;
-                    var newPoints = pageData.locationsToRevs[JSON.stringify(marker.location)];
+                    var newPoints = value.data;
                     var circumference = newPoints.length * 0.01;
                     var radius = circumference / (2*Math.PI);
                     for (var c = 0; c < newPoints.length; c++) {
                         var pointLocation = {
-                            latitude: marker.location.latitude + radius * Math.cos(2 * Math.PI * c / newPoints.length),
-                            longitude: marker.location.longitude + radius * Math.sin(2 * Math.PI * c / newPoints.length)
+                            latitude: value.location.latitude + radius * Math.cos(2 * Math.PI * c / newPoints.length),
+                            longitude: value.location.longitude - radius * Math.sin(2 * Math.PI * c / newPoints.length)
                         };
                         $scope.expandLocations.push({
                             data: newPoints[c],
                             location: pointLocation});
-                        $scope.expandLines.push([pointLocation, marker.location]);
+                        $scope.expandLines.push([pointLocation, value.location]);
                     }
                 }
             };
+            $scope.$watch('pageData.locationsToRevs', function(newValue) {
+                $scope.locations.length = 0;
+                for (key in newValue) {
+                    if (newValue.hasOwnProperty(key)) {
+                        var self = newValue[key];
+                        $scope.locations.push(self);
+                        if (!self.select) {
+                            self.select = function() {
+                                $scope.selectLocation(self);
+                            }
+                        }
+                    }
+                }
+            }, true);
             uiGmapGoogleMapApi.then(function (maps) {
 
             });

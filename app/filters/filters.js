@@ -2,13 +2,13 @@ angular.module('wikiMiner.directives.filters', ['wikiMiner.slider.services'])
 
 
 
-.directive('filters', ['timeBounds','scale', function (timeBounds,scale) {
+.directive('filters', ['timeBounds','scale', 'pageData', function (timeBounds, scale, pageData) {
     return {
         restrict: 'E',
         link: function (scope, element, attributes) {
             scope.timeBounds = timeBounds;
             scope.scale=scale;
-            scope.pageList = [];
+            scope.pageData = pageData;
 
             scope.$watch('timeBounds',function(newValues){
                 scope.maxDate = new Date((scale.maxDate-scale.minDate)*(timeBounds.maxTime/100)+scale.minDate);
@@ -21,12 +21,13 @@ angular.module('wikiMiner.directives.filters', ['wikiMiner.slider.services'])
             }, true);
 
             scope.addPage = function (pageToAdd) {
-                scope.pageList.push({name: pageToAdd, selected: true});
+                scope.pageData.addPage(pageToAdd);
                 scope.pageToAdd = "";
             };
             scope.removePage = function (indexToRemove) {
+                //TODO
                 scope.pageList.splice(indexToRemove, 1);
-            },
+            };
             scope.setMinimum = function(){
                 scope.minDate=new Date(scale.minDate);
                 scope.updateTime();
