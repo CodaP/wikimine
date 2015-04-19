@@ -56,7 +56,10 @@ module.factory('timeBounds', function(){
             var newPage = {
                 name: page,
                 selected: true,
-                revLocations: []
+                revLocations: [],
+                loadRemain: 15,
+                loadLimitHit: false,
+                loadFinished: false
             };
             var addDataPoint = function (data, location) {
                 data.hasComment = data.comment.length > 0;
@@ -79,12 +82,20 @@ module.factory('timeBounds', function(){
                 // {query-continue: {revisions: {rvcontinue}}, query: {pages: {$id: {pageid, ns, title, revisions: [{revid, parentid, user, anon?, comment}]}}}}
                 var pages = data.query.pages;
                 if (data['query-continue'] != undefined) {
-                    query_api.get({
-                        titles: newPage.name,
-                        rvstartid: data['query-continue'].revisions.rvcontinue
-                    }, processRevisions);
+                    newPage.loadRemain--;
+                    if (newPage.loadRemain == 0) {
+                        newPage.loadLimitHit = true;
+                    } else {
+                        query_api.get({
+                            titles: newPage.name,
+                            rvstartid: data['query-continue'].revisions.rvcontinue
+                        }, processRevisions);
+                    }
                 } else {
                     console.log('No more revisions!');
+                    newPage.loadRemain = 0;
+                    newPage.loadLimitHit = false;
+                    newPage.loadFinished = true;
                 }
                 var isIp = function (ipStr) {
                     return ipStr.match(/^[0-9A-Fa-f:\\.]+$/);
@@ -117,8 +128,20 @@ module.factory('timeBounds', function(){
                     }
                 }
             };
+            newPage.continueLoad = function() {
+                if (!newPage.loadLimitHit || newPage.loadFinished) {
+                    console.log('Page not ready to continue load');
+                    return;
+                }
+                newPage.loadLimitHit = false;
+                newPage.loadRemain = 15;
+                query_api.get({titles: page}, processRevisions);
+            };
             pageData.pages.push(newPage);
             query_api.get({titles: page}, processRevisions);
+        };
+        pageData.continueLoad = function(index) {
+            pageData.pages[index].continueLoad();
         };
         return pageData;
     })
