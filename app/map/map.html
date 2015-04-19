@@ -1,3 +1,9 @@
 <div style="height:900px">
-    <ui-gmap-google-map center='map.center' zoom='map.zoom' options="map.options"></ui-gmap-google-map>
+    <ui-gmap-google-map center='map.center' zoom='map.zoom' options="map.options">
+        <ui-gmap-marker ng-repeat="marker in revLocations"
+                idKey='marker.data.revid'
+                coords='marker.location'
+                >
+        </ui-gmap-marker>
+    </ui-gmap-google-map>
 </div>
