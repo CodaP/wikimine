@@ -2,7 +2,7 @@ var module = angular.module('wikiMiner.slider.services',[]);
 module.factory('timeBounds', function(){
         return {
             'minTime': 0,
-            'maxTime': 0
+            'maxTime': 100
         }
     })
     .factory('pageData', function(query_api, geo_api){
