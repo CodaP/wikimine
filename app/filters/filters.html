@@ -2,7 +2,7 @@
 <h3>Pages</h3>
 
 
-<form ng-submit="addPage(pageToAdd)" class="form-inline">
+<form name="pageForm" ng-submit="addPage(pageToAdd)" class="form-inline">
     <div class="pageDiv">
             <div  ng-repeat="page in pageList" name="pageList" class="row" style="overflow-y:auto">
                 <input class="col-xs-2" type="checkbox" ng-model="page.selected" style="margin-left: 10%">
@@ -14,7 +14,7 @@
     </div>
     <br>
     <input name="inputPageElement" type="text" class="input-group" ng-model="pageToAdd" placeholder="Add a new Page">
-    <br>
+    <span ng-show="true">Username is required.</span>
 
 
 </form>
