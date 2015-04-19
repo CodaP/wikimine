@@ -15,20 +15,21 @@
     <br>
     <!--<input name="inputPageElement" type="text" class="input-group" ng-model="pageToAdd" placeholder="Add a new Page">-->
     <autocomplete ng-model="pageToAdd" data="suggestions" on-type="triggerUpdateSuggestions"></autocomplete>
-    <span ng-show="true">Username is required.</span>
 
 
 </form>
-<div style="position: absolute;">
+<div style="position: inherit; bottom:0px">
     <h3>Time Range</h3>
 
     <form class="form-horizontal">
+
         <div class="form-group">
             <label class="col-sm-2 control-label">Start:</label>
             <div class="col-sm-10">
                 <input type="date" ng-click="updateTime()" ng-model="minDate" max="{{maxDate}}" min="0"  class="form-control">
             </div>
         </div>
+
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
@@ -38,7 +39,10 @@
                 </div>
             </div>
         </div>
-        <hr>
+
+
+
+        
         <div class="form-group">
             <label class="col-sm-2 control-label">End:</label>
             <div class="col-sm-10">
@@ -47,11 +51,9 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <div class="checkbox">
                     <label>
                         <input type="button" class="btn" ng-click="setMaximum()" value="Use Date Created">
                     </label>
-                </div>
             </div>
         </div>
     </form>
