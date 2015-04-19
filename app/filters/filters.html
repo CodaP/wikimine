@@ -4,8 +4,8 @@
 
 <form ng-submit="addPage(pageToAdd)" class="form-inline">
     <div class="pageDiv">
-            <div  ng-repeat="page in pageList" name="pageList" class="row">
-                <input class="col-xs-2" type="checkbox" ng-model="page.selected">
+            <div  ng-repeat="page in pageList" name="pageList" class="row" style="overflow-y:auto">
+                <input class="col-xs-2" type="checkbox" ng-model="page.selected" style="margin-left: 10%">
                 <Span class="form-control col-xs-8">{{page.name}}</Span>
                 <button ng-click="removePage($index)" type="button" class="btn btn-default col-xs-2" aria-label="Right Align">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
