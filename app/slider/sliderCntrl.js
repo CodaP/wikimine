@@ -2,7 +2,7 @@
  * Created by codaphillips on 4/18/15.
  */
 angular.module('wikiMiner.controllers',['wikiMiner.slider.services']).
-    controller('sliderCntrl', ['$scope', 'timeBounds', 'pageData', function($scope, timeBounds, pageData){
+    controller('sliderCntrl', ['$scope', 'timeBounds', 'pageData', 'scale', function($scope, timeBounds, pageData, scale){
         $scope.bounds = timeBounds;
         $scope.page_data = pageData;
         $scope.scale = [0,(new Date()).valueOf()];
@@ -22,6 +22,7 @@ angular.module('wikiMiner.controllers',['wikiMiner.slider.services']).
                     }
                 }
             }
-            $scope.scale = [min_time,max_time];
+            scale.minDate = min_time;
+            scale.maxDate = max_time;
         });
     }]);
