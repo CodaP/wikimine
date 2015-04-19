@@ -6,7 +6,7 @@ angular.module('wikiMiner.controllers',['wikiMiner.slider.services']).
         $scope.bounds = timeBounds;
         $scope.page_data = pageData;
         $scope.scale = scale;
-        scale.minDate = 0
+        scale.minDate = 0;
         scale.maxDate = (new Date()).valueOf();
         $scope.$watch('page_data.revLocations', function(newValue){
                 var min_time = 1e90;

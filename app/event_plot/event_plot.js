@@ -20,7 +20,10 @@ angular.module('wikiMiner.event_plot',['wikiMiner.slider.services'])
                scope.scaler_transform = d3.scale.linear().domain([scale.minDate,scale.maxDate]).range([0,100]);
                scope.$watch('scale',function(newVal){
                    scope.scaler_transform = d3.scale.linear().domain([scope.scale.minDate,scope.scale.maxDate]).range([0,100]);
+                   scope.filter();
+                   scope.render();
                }, true);
+
                scope.$watch('timeBounds',function(newVal){
                    scope.filter();
                    scope.render();
