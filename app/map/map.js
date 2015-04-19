@@ -24,16 +24,17 @@ angular.module('wikiMiner.directives.geoMap', ['uiGmapgoogle-maps', 'wikiMiner.s
                     styles: [] // TODO: add styles
                 }
             };
-            $scope.preData = [];
+            $scope.revLocations = [];
             $scope.addDataPoint = function(data, location) {
-                this.preData.push({data: data, location: location});
+                this.revLocations.push({data: data, location: location});
             };
             $scope.processRevisions = function(data) {
                 // {query-continue: {revisions: {rvcontinue}}, query: {pages: {$id: {pageid, ns, title, revisions: [{revid, parentid, user, anon?, comment}]}}}}
                 var pages = data.query.pages;
                 if (data['query-continue'] != undefined) {
-                    console.log("Continue!");
-                    query_api.get({titles: 'baseball', rvstartid: data['query-continue'].revisions.rvcontinue}, $scope.processRevisions);
+                    query_api.get({titles: 'canada', rvstartid: data['query-continue'].revisions.rvcontinue}, $scope.processRevisions);
+                } else {
+                    console.log('No more revisions!');
                 }
                 for(var id in pages) {
                     if (pages.hasOwnProperty(id)) {
@@ -66,16 +67,9 @@ angular.module('wikiMiner.directives.geoMap', ['uiGmapgoogle-maps', 'wikiMiner.s
             $scope.cleanIp = function(ipStr) {
                 return ipStr.replace('xxx', '0');
             };
-            query_api.get({titles: 'baseball'}, $scope.processRevisions);
+            query_api.get({titles: 'canada'}, $scope.processRevisions);
             uiGmapGoogleMapApi.then(function (maps) {
-                $scope.addDataPoint = function(data, location) {
-                    //TODO: show on the map
-                    console.log('data: '+JSON.stringify(data)+', location: '+JSON.stringify(location));
-                };
-                for (var c = 0; c < $scope.preData.length; c++) {
-                    $scope.addDataPoint(preData[c].data, preData[c].location);
-                }
-                delete $scope.preData;
+
             });
         },
         scope: {},
