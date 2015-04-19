@@ -14,9 +14,12 @@ angular.module('wikiMiner.directives.filters', ['wikiMiner.slider.services'])
             };
             scope.removePage = function (indexToRemove) {
                 scope.pageList.splice(indexToRemove, 1);
-            }
-            scope.addRegion = function () {
-
+            },
+            scope.setMinimum = function(){
+                scope.timeBounds.minTime=0;
+            };
+            scope.setMaximum = function(){
+                scope.timeBounds.maxTime=100;
             }
         },
         scope: {},

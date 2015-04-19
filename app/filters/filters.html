@@ -25,14 +25,14 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Start:</label>
             <div class="col-sm-10">
-                <input type="number" ng-model="timeBounds.minTime" max="{{timeBounds.maxTime}}" class="form-control">
+                <input type="number" ng-model="timeBounds.minTime" max="{{timeBounds.maxTime}}" min="0"  class="form-control">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox"> Use Current Date
+                        <input type="checkbox" ng-click="setMinimum()"> Use Current Date
                     </label>
                 </div>
             </div>
@@ -48,7 +48,7 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox"> Use Date Created
+                        <input type="checkbox" ng-click="setMaximum()"> Use Date Created
                     </label>
                 </div>
             </div>
