@@ -10,7 +10,8 @@ angular.module('wikiMiner', [
   'wikiMiner.services.nytimes_api',
   'wikiMiner.controllers',
   'wikiMiner.slider.services',
-  'ui.slider'
+  'ui.slider',
+  'wikiMiner.event_plot'
 ])
 
 .config(['$routeProvider', function($routeProvider) {
