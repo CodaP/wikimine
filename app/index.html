@@ -44,14 +44,17 @@
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-  <div ng-controller="sliderCntrl">
-    <event-plot ng-model="bounds"></event-plot>
-    <slider floor="0" ceiling="100" ng-model-low="bounds.minTime" ng-model-high="bounds.maxTime"></slider>
-  </div>
-  <div class="container-fluid">
+
+  <div style="max-height: 70vh">
     <filters class="col-xs-2"></filters>
     <geo-map class="col-xs-10"></geo-map>
   </div>
+
+</div>
+<hr>
+<div Style="position: fixed; bottom: 0px; width: 100%" ng-controller="sliderCntrl">
+  <event-plot ng-model="bounds"></event-plot>
+  <slider floor="0" ceiling="100" ng-model-low="bounds.minTime" ng-model-high="bounds.maxTime"></slider>
 </div>
 </body>
 </html>

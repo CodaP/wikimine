@@ -44,7 +44,7 @@ li {
 }
 
 .pageDiv{
-  max-height: 175px;
+  max-height: 15vh;
   overflow: auto;
 }
 
