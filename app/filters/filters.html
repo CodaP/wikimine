@@ -2,11 +2,9 @@
     <div class="panel-body">
 
 
-
-        <div style="max-height: 70vh">
         <h3>Pages</h3>
 
-
+        <div style="height: 215px;">
         <form name="pageForm" ng-submit="addPage(pageToAdd)" class="form-inline">
             <div class="pageDiv">
                     <div  ng-repeat="page in pageData.pages" name="pageList" class="row" style="overflow-y:auto">
@@ -20,9 +18,14 @@
             <br>
             <!--<input name="inputPageElement" type="text" class="input-group" ng-model="pageToAdd" placeholder="Add a new Page">-->
             <autocomplete ng-model="pageToAdd" data="suggestions" on-type="triggerUpdateSuggestions" Style=""></autocomplete>
-
-
         </form>
+        </div>
+
+
+
+
+
+
         <div style="position: relative; bottom: auto;">
             <h3>Time Range</h3>
 
@@ -61,7 +64,6 @@
                     </div>
                 </div>
             </form>
-        </div>
         </div>
 
     </div>
